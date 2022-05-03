@@ -10,15 +10,31 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1 class="title">Выбери сложность</h1>
-        <div class="level">
-            <img class="level__number" src="image/1.png" alt="one" srcset="">
-            <img class="level__number" src="image/2.png" alt="one" srcset="">
-            <img class="level__number" src="image/3.png" alt="one" srcset="">
-        </div>
-        <button class="button">Старт</button>
-    </div>
+    <div class="app"></div>
 </body>
 
+<script>
+    const app = document.querySelector('.app');
+    window.application = {
+        blocks: {},
+        screens: {},
+        renderScreen(screenName) {
+            app.textContent = '';
+            this.screens[screenName]();
+        },
+        renderBlock(blockName, container) {
+            this.blocks[blockName](container);
+        },
+        timers: [],
+        difficulty: undefined,
+    }
+
+</script>
+
+<script src="screens/difficulty.js"></script>
+<script src="screens/game.js"></script>
+
+<script>
+    window.application.renderScreen('difficulty');
+</script>
 </html>

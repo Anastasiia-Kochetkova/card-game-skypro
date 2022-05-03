@@ -34,6 +34,9 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
 }
 
 .title {
@@ -56,11 +59,31 @@ body {
   display: -ms-flexbox;
   display: flex;
   gap: 24px;
-  padding-bottom: 67px;
+  padding-bottom: 20px;
 }
 
 .level__number:hover {
   cursor: pointer;
+}
+
+.current-level {
+  border: solid 3px #004980;
+  border-radius: 12px;
+}
+
+.warning_hidden {
+  display: none;
+}
+
+.warning {
+  font-family: 'StratosSkyeng';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+  color: lightcoral;
+  text-align: center;
+  padding-bottom: 20px;
 }
 
 .button {
