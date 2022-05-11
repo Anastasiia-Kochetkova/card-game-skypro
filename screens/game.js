@@ -1,8 +1,8 @@
-window.application.screens['game'] = function(){
+/*global app*/
 
+window.application.screens["game"] = function () {
     const title = document.createElement("h1");
-    title.classList.add('title');
-    title.textContent = 'Вы на экране игры'
-
+    title.classList.add("title");
+    title.textContent = "Вы на экране игры";
     app.appendChild(title);
 };

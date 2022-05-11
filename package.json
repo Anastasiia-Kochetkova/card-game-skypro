@@ -1,0 +1,27 @@
+{
+    "name": "card-game-skypro",
+    "version": "1.0.0",
+    "description": "my first moduls",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "format": "prettier --write .",
+        "lint:js": "eslint \"./**/*.js/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Anastasiia-Kochetkova/card-game-skypro.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Anastasiia-Kochetkova/card-game-skypro/issues"
+    },
+    "homepage": "https://github.com/Anastasiia-Kochetkova/card-game-skypro#readme",
+    "devDependencies": {
+        "eslint": "^8.15.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "prettier": "^2.6.2"
+    }
+}
