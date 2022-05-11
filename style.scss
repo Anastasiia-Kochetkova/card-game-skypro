@@ -1,13 +1,15 @@
 * {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 }
+
 body {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .container {
     width: 480px;
     height: 459px;
@@ -25,7 +27,6 @@ body {
 .title {
     width: 208px;
     height: 96px;
-    font-family: "StratosSkyeng";
     font-style: normal;
     font-weight: 400;
     font-size: 40px;
@@ -41,6 +42,7 @@ body {
     gap: 24px;
     padding-bottom: 20px;
 }
+
 .level__number:hover {
     cursor: pointer;
 }
@@ -53,8 +55,8 @@ body {
 .warning_hidden {
     display: none;
 }
+
 .warning {
-    font-family: "StratosSkyeng";
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
@@ -66,23 +68,24 @@ body {
 }
 
 .button {
-    font-family: "StratosSkyeng";
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
     line-height: 32px;
     text-align: center;
     font-feature-settings: "pnum" on, "lnum" on;
-    color: #ffffff;
+    color: #fff;
     width: 246px;
     height: 50px;
     background: #7ac100;
     border: none;
     border-radius: 12px;
+
     &:hover {
         cursor: pointer;
         background: #649e00;
     }
+
     &:active {
         background: #436901;
     }
