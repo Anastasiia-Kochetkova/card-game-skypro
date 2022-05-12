@@ -8,8 +8,8 @@
         "format": "prettier --write .",
         "lint:js": "eslint \"./**/*.js/",
         "lint:scss": "stylelint \"./**/*.scss/",
-        "lint": "npm run lint:js && npm run lint:scss",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "lint": "npm run lint:js && npm run lint:scss"
     },
     "repository": {
         "type": "git",
@@ -26,7 +26,6 @@
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.0.0",
         "husky": "^8.0.1",
-        "pre-commit": "^1.2.2",
         "prettier": "^2.6.2",
         "stylelint": "^14.8.2",
         "stylelint-config-prettier-scss": "0.0.1",
