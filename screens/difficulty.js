@@ -1,9 +1,13 @@
 /*global app*/
 
 window.application.screens["difficulty"] = function () {
+    const mainContainer = document.createElement("div");
+    mainContainer.classList.add("main-container");
+    app.appendChild(mainContainer);
+
     const container = document.createElement("div");
     container.classList.add("container");
-    app.appendChild(container);
+    mainContainer.appendChild(container);
 
     const title = document.createElement("h1");
     title.classList.add("title");
@@ -27,11 +31,11 @@ window.application.screens["difficulty"] = function () {
 
     container.appendChild(warning);
 
-    const StartButton = document.createElement("button");
-    StartButton.classList.add("button");
-    StartButton.textContent = "Старт";
+    const startButton = document.createElement("button");
+    startButton.classList.add("button");
+    startButton.textContent = "Старт";
 
-    container.appendChild(StartButton);
+    container.appendChild(startButton);
 
     function addLevelImg(id, alt) {
         const levelNumber = document.createElement("img");
@@ -58,7 +62,7 @@ window.application.screens["difficulty"] = function () {
         window.application.difficulty = event.target.id;
     }
 
-    StartButton.addEventListener("click", function () {
+    startButton.addEventListener("click", function () {
         if (window.application.difficulty === undefined) {
             warning.classList.remove("warning_hidden");
             return;

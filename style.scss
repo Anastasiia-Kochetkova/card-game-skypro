@@ -3,11 +3,17 @@
     margin: 0;
 }
 
-body {
+.app {
+    background: #004980;
+    height: 100vh;
+    width: 100vw;
+}
+
+.main-container {
     height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
 .container {
@@ -85,8 +91,78 @@ body {
         cursor: pointer;
         background: #649e00;
     }
-    
+
     &:active {
         background: #436901;
+    }
+}
+
+.head {
+    height: 80px;
+    padding-top: 20px;
+    padding-right: 23px;
+    padding-left: 23px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.timer {
+    height: 80px;
+    width: 156px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+
+.cards-field {
+    display: flex;
+    flex-flow: row wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 750px;
+}
+
+.container-for-field {
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+}
+
+.time {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 72px;
+    color: #fff;
+    height: 60px;
+
+    &__title {
+        justify-content: flex-end;
+
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 32px;
+
+        color: #fff;
+        display: flex;
+    }
+
+    &__title-min {
+        position: absolute;
+        width: 28px;
+        height: 32px;
+        left: 61px;
+        top: 22px;
+    }
+
+    &__title-sec {
+        position: absolute;
+        width: 26px;
+        height: 32px;
+        left: 146px;
+        top: 22px;
     }
 }

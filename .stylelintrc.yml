@@ -2,3 +2,4 @@ extends: ["stylelint-config-standard-scss", "stylelint-config-prettier-scss"]
 rules:
     selector-class-pattern: null
     declaration-empty-line-before: null
+ignoreShorthands: ["/flex/"]    
