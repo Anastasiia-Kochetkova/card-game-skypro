@@ -90,12 +90,15 @@ window.application.screens["game"] = function () {
         addCardImg(element);
     });
 
+    setTimeout(flipTheCard, 5000);
+
     function addCardImg(name) {
         const card = document.createElement("div");
         card.classList.add("card");
         cardsField.appendChild(card);
 
         const imageCard = document.createElement("img");
+        imageCard.classList.add("image-card");
         imageCard.id = name;
         imageCard.alt = "card";
         imageCard.src = getImgByName(name); //  Попробовать делать массив из чисел индексов, а не строк из поля name. меньше циклов.
@@ -129,5 +132,12 @@ window.application.screens["game"] = function () {
             ];
         }
         return array;
+    }
+
+    function flipTheCard() {
+        const currentCards = document.querySelectorAll(".image-card");
+        currentCards.forEach((element) => {
+            element.src = "./cards/back.png";
+        });
     }
 };

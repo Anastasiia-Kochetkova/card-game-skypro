@@ -68,6 +68,6 @@ window.application.screens["difficulty"] = function () {
             return;
         }
 
-        window.application.renderScreen("game"); //экран игры ещё не создан
+        window.application.renderScreen("game");
     });
 };
