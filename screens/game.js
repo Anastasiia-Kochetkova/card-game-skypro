@@ -1,34 +1,5 @@
 /*global app, cardsData*/
 
-/* <body>
-        <div class="head">
-            <div class="timer">
-                <div class="timer__block">
-                    <h2 class="time__title time__title-min">min</h2>
-                    <div class="time minutes">00</div>
-                </div>
-                <div class="time">.</div>
-                <div class="timer__block">
-                    <h2 class="time__title time__title-sec">sec</h2>
-                    <div class="time seconds">00</div>
-                </div>
-            </div>
-            <button class="button">Начать заново</button>
-        </div>
-        <div class="container-for-field">
-            <div class="cards-field">
-                <div class="card">
-                    <img src="./cards/back.png" alt="card">
-                </div> 
-
-                ....    - повторить блок 18 раз в сумме
-
-                <div class="card">
-                    <img src="./cards/back.png" alt="card">
-                </div>
-                
-*/
-
 window.application.screens["game"] = function () {
     const head = document.createElement("div");
     head.classList.add("head");
@@ -104,11 +75,9 @@ window.application.screens["game"] = function () {
 
     let pairCards = [];
     for (let i = 0; i < pairCount; i++) {
-        // get random index in allCards array
         let randomIndex = Math.floor(Math.random() * allCards.length);
         let randomElement = allCards[randomIndex];
 
-        // remove element from allCards array
         allCards.splice(randomIndex, 1);
 
         pairCards.push(randomElement);
@@ -121,17 +90,26 @@ window.application.screens["game"] = function () {
         addCardImg(element);
     });
 
-    function addCardImg(id) {
+    function addCardImg(name) {
         const card = document.createElement("div");
         card.classList.add("card");
         cardsField.appendChild(card);
 
         const imageCard = document.createElement("img");
-        imageCard.id = id;
+        imageCard.id = name;
         imageCard.alt = "card";
-        imageCard.src = "cards/back.png";
-        imageCard.alt = card;
+        imageCard.src = getImgByName(name); //  Попробовать делать массив из чисел индексов, а не строк из поля name. меньше циклов.
         card.appendChild(imageCard);
+    }
+
+    function getImgByName(name) {
+        let imageSrc = undefined;
+        cardsData.forEach((element) => {
+            if (element.name === name) {
+                imageSrc = element.image;
+            }
+        });
+        return imageSrc;
     }
 
     function shuffle(array) {
