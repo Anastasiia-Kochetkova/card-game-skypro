@@ -1,4 +1,4 @@
-/*global app, cardsData*/
+/*global app, cardsData, createElement*/
 
 window.application.screens["game"] = function () {
     const head = createHeadContainer();
@@ -69,46 +69,26 @@ window.application.screens["game"] = function () {
     }
 
     function createTimer(container) {
-        const timer = document.createElement("div");
-        timer.classList.add("timer");
-        container.appendChild(timer);
+        let classList;
 
-        const timerBlockMin = document.createElement("div");
-        timerBlockMin.classList.add("timer__block");
-        timer.appendChild(timerBlockMin);
+        const timer = createElement("div", "timer", container);
 
-        const timeTitleMin = document.createElement("h2");
-        timeTitleMin.classList.add("time__title");
-        timeTitleMin.classList.add("time__title-min");
-        timeTitleMin.textContent = "min";
-        timerBlockMin.appendChild(timeTitleMin);
+        const timerBlockMin = createElement("div", "timer__block", timer);
 
-        const minutes = document.createElement("div"); //оптимизировать верстку таймера через шаблонизатор
-        minutes.classList.add("time");
-        minutes.classList.add("minutes");
-        minutes.textContent = "00";
-        timerBlockMin.appendChild(minutes);
+        classList = ["time__title", "time__title-min"];
+        createElement("h2", classList, timerBlockMin, "min");
 
-        const point = document.createElement("div");
-        point.classList.add("time");
-        point.textContent = ".";
-        timer.appendChild(point);
+        classList = ["time", "minutes"];
+        createElement("div", classList, timerBlockMin, "00");
 
-        const timerBlockSec = document.createElement("div");
-        timerBlockSec.classList.add("timer__block");
-        timer.appendChild(timerBlockSec);
+        createElement("div", "time", timer, ".");
 
-        const timeTitleSec = document.createElement("h2");
-        timeTitleSec.classList.add("time__title");
-        timeTitleSec.classList.add("time__title-sec");
-        timeTitleSec.textContent = "sec";
-        timerBlockSec.appendChild(timeTitleSec);
+        const timerBlockSec = createElement("div", "timer__block", timer);
+        classList = ["time__title", "time__title-sec"];
+        createElement("h2", classList, timerBlockSec, "sec");
 
-        const seconds = document.createElement("div");
-        seconds.classList.add("time");
-        seconds.classList.add("seconds");
-        seconds.textContent = "00";
-        timerBlockSec.appendChild(seconds);
+        classList = ["time", "seconds"];
+        createElement("div", classList, timerBlockSec, "00");
     }
 
     function addCardImg(container, name) {

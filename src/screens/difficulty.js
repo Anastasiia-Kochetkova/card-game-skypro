@@ -1,50 +1,36 @@
-/*global app*/
+/*global app, createElement*/
 
 window.application.screens["difficulty"] = function () {
-    const mainContainer = document.createElement("div");
-    mainContainer.classList.add("main-container");
-    app.appendChild(mainContainer);
+    const mainContainer = createElement("div", "main-container", app);
 
-    const container = document.createElement("div");
-    container.classList.add("container");
-    mainContainer.appendChild(container);
+    const container = createElement("div", "container", mainContainer);
 
-    const title = document.createElement("h1");
-    title.classList.add("title");
-    title.textContent = "Выбери сложность";
+    createElement("h1", "title", container, "Выбери сложность");
 
-    container.appendChild(title);
-
-    const levelsNumbers = document.createElement("div");
-    levelsNumbers.classList.add("level");
-
-    container.appendChild(levelsNumbers);
+    const levelsNumbers = createElement("div", "level", container);
 
     addLevelImg("1", "one");
     addLevelImg("2", "two");
     addLevelImg("3", "three");
 
-    const warning = document.createElement("h1");
-    warning.classList.add("warning");
-    warning.classList.add("warning_hidden");
-    warning.textContent = "Сначала необходимо выбрать уровень!";
+    const warning = createElement(
+        "h1",
+        ["warning", "warning_hidden"],
+        container,
+        "Сначала необходимо выбрать уровень!"
+    );
 
-    container.appendChild(warning);
-
-    const startButton = document.createElement("button");
-    startButton.classList.add("button");
-    startButton.textContent = "Старт";
-
-    container.appendChild(startButton);
+    const startButton = createElement("button", "button", container, "Старт");
 
     function addLevelImg(id, alt) {
-        const levelNumber = document.createElement("img");
+        const levelNumber = createElement(
+            "img",
+            "level__number",
+            levelsNumbers
+        );
         levelNumber.id = id;
-        levelNumber.classList.add("level__number");
         levelNumber.src = `image/${id}.png`;
         levelNumber.alt = alt;
-
-        levelsNumbers.appendChild(levelNumber);
     }
 
     const levels = document.querySelectorAll(".level__number");
