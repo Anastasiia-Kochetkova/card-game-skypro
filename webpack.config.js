@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const miniCss = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
     entry: "./src/index.js",
@@ -13,15 +14,6 @@ module.exports = {
     mode: process.env.NODE_ENV,
     module: {
         rules: [
-            /*{
-                test: /\.(s*)css$/,     убрать старую версию, если всё заработает
-                use: [
-                    "style-loader",
-                    miniCss.loader,
-                    "css-loader",
-                    "sass-loader",
-                ],
-            },*/
             {
                 test: /\.(s*)css$/,
                 use: [miniCss.loader, "css-loader", "sass-loader"],
@@ -36,6 +28,13 @@ module.exports = {
             },
         ],
     },
+    optimization: {
+        minimizer: ["...", new CssMinimizerPlugin()],
+    },
+    devtool:
+        process.env.NODE_ENV === "production"
+            ? "hidden-source-map"
+            : "source-map",
     plugins: [
         new CopyPlugin({
             patterns: [{ from: "static", to: "static" }],

@@ -101,7 +101,7 @@ export function createGameScreen() {
         imageCard.classList.add("image-card");
         imageCard.id = name;
         imageCard.alt = "card";
-        imageCard.src = getImgByName(name); //  Попробовать делать массив из чисел индексов, а не строк из поля name. меньше циклов.
+        imageCard.src = getImgByName(name);
         card.appendChild(imageCard);
     }
 
@@ -139,5 +139,46 @@ export function createGameScreen() {
         currentCards.forEach((element) => {
             element.src = "./static/cards/back.png";
         });
+        subscribeCardsOnClick();
+    }
+
+    function subscribeCardsOnClick() {
+        const cards = document.querySelectorAll(".image-card");
+        cards.forEach((element) => {
+            element.addEventListener("click", cardOnClick);
+        });
+    }
+
+    function cardOnClick(event) {
+        // todo: проверить, что карта ещё не отгадана
+        const chosenCard = event.target;
+        if (window.application.openCard === undefined) {
+            // клик по первой карте
+            chosenCard.src = `/static/cards/${chosenCard.id}.jpg`;
+            window.application.openCard = chosenCard;
+        } else {
+            if (window.application.openCard !== chosenCard) {
+                // клик по второй карте
+                chosenCard.src = `/static/cards/${chosenCard.id}.jpg`;
+                if (window.application.openCard.id === chosenCard.id) {
+                    setTimeout(showWinScreen, 500);
+                    // todo: пометить карты как отгаданные
+                } else {
+                    setTimeout(showLoseScreen, 500);
+                }
+                // todo: очистить openCard
+            } else {
+                // та же самая карта, ничего не делаем
+                return;
+            }
+        }
+    }
+
+    function showLoseScreen() {
+        alert("Вы проиграли эту битву (((");
+    }
+
+    function showWinScreen() {
+        alert("Поздравляю, вы победили!");
     }
 }

@@ -4,12 +4,12 @@ import { createGameScreen } from "./screens/game";
 import { app } from "./globals";
 
 window.application = {
-    blocks: {},
     screens: {},
     renderScreen(screenName) {
         app.textContent = "";
         this.screens[screenName]();
     },
+    openCard: undefined,
     timers: [],
     difficulty: undefined,
 };
