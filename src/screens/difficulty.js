@@ -1,6 +1,6 @@
-/*global app, createElement*/
+import { app, createElement } from "../globals";
 
-window.application.screens["difficulty"] = function () {
+export function createDifficultyScreen() {
     const mainContainer = createElement("div", "main-container", app);
 
     const container = createElement("div", "container", mainContainer);
@@ -29,7 +29,7 @@ window.application.screens["difficulty"] = function () {
             levelsNumbers
         );
         levelNumber.id = id;
-        levelNumber.src = `image/${id}.png`;
+        levelNumber.src = `static/image/${id}.png`;
         levelNumber.alt = alt;
     }
 
@@ -56,4 +56,4 @@ window.application.screens["difficulty"] = function () {
 
         window.application.renderScreen("game");
     });
-};
+}

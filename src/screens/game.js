@@ -1,6 +1,7 @@
-/*global app, cardsData, createElement*/
+import { app, createElement } from "../globals";
+import { cardsData } from "../card-collection";
 
-window.application.screens["game"] = function () {
+export function createGameScreen() {
     const head = createHeadContainer();
     createTimer(head);
     createResetButton(head);
@@ -136,7 +137,7 @@ window.application.screens["game"] = function () {
     function flipTheCard() {
         const currentCards = document.querySelectorAll(".image-card");
         currentCards.forEach((element) => {
-            element.src = "./cards/back.png";
+            element.src = "./static/cards/back.png";
         });
     }
-};
+}

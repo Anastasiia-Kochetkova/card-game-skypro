@@ -9,7 +9,9 @@
         "lint:js": "eslint \"./**/*.js/",
         "lint:scss": "stylelint \"./**/*.scss/",
         "prepare": "husky install",
-        "lint": "npm run lint:js && npm run lint:scss"
+        "lint": "npm run lint:js && npm run lint:scss",
+        "build": "SET NODE_ENV=production&webpack",
+        "start": "SET NODE_ENV=development&webpack-dev-server --open"
     },
     "repository": {
         "type": "git",
@@ -22,14 +24,24 @@
     },
     "homepage": "https://github.com/Anastasiia-Kochetkova/card-game-skypro#readme",
     "devDependencies": {
+        "copy-webpack-plugin": "^11.0.0",
+        "css-loader": "^6.7.1",
         "eslint": "^8.15.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.0.0",
+        "html-webpack-plugin": "^5.5.0",
         "husky": "^8.0.1",
+        "mini-css-extract-plugin": "^2.6.0",
+        "node-sass": "^7.0.1",
         "prettier": "^2.6.2",
+        "sass-loader": "^13.0.0",
+        "style-loader": "^3.3.1",
         "stylelint": "^14.8.2",
         "stylelint-config-prettier-scss": "0.0.1",
-        "stylelint-config-standard-scss": "^3.0.0"
+        "stylelint-config-standard-scss": "^3.0.0",
+        "webpack": "^5.72.1",
+        "webpack-cli": "^4.9.2",
+        "webpack-dev-server": "^4.9.1"
     },
     "dependencies": {}
 }

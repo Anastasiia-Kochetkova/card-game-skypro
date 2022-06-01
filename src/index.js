@@ -1,4 +1,8 @@
-const app = document.querySelector(".app");
+import "./styles/style.css";
+import { createDifficultyScreen } from "./screens/difficulty";
+import { createGameScreen } from "./screens/game";
+import { app } from "./globals";
+
 window.application = {
     blocks: {},
     screens: {},
@@ -6,9 +10,10 @@ window.application = {
         app.textContent = "";
         this.screens[screenName]();
     },
-    renderBlock(blockName, container) {
-        this.blocks[blockName](container);
-    },
     timers: [],
     difficulty: undefined,
 };
+window.application.screens["difficulty"] = createDifficultyScreen;
+window.application.screens["game"] = createGameScreen;
+
+window.application.renderScreen("difficulty");
