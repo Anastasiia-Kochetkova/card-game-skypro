@@ -15,4 +15,4 @@ rules:
     eqeqeq: ["error"]
 
 parserOptions:
-    sourceType: 'module'    
+    sourceType: "module"
