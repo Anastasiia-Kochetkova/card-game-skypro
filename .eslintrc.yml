@@ -7,6 +7,8 @@ env:
     node: true
     es6: true
 
+ignorePatterns: ["dist/"]
+
 rules:
     "prettier/prettier": "error"
     camelcase: ["error"]
