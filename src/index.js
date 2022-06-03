@@ -12,6 +12,7 @@ window.application = {
     openCard: undefined,
     timers: [],
     difficulty: undefined,
+    pairCount: undefined,
 };
 window.application.screens["difficulty"] = createDifficultyScreen;
 window.application.screens["game"] = createGameScreen;

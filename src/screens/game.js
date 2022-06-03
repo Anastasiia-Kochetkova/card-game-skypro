@@ -40,6 +40,8 @@ export function createGameScreen() {
             pairCount = 9;
         }
 
+        window.application.pairCount = pairCount;
+
         let pairCards = [];
         for (let i = 0; i < pairCount; i++) {
             let randomIndex = Math.floor(Math.random() * allCards.length);
@@ -150,26 +152,24 @@ export function createGameScreen() {
     }
 
     function cardOnClick(event) {
-        // todo: проверить, что карта ещё не отгадана
         const chosenCard = event.target;
         if (window.application.openCard === undefined) {
             // клик по первой карте
             chosenCard.src = `/static/cards/${chosenCard.id}.jpg`;
+            chosenCard.removeEventListener("click", cardOnClick);
             window.application.openCard = chosenCard;
         } else {
-            if (window.application.openCard !== chosenCard) {
-                // клик по второй карте
-                chosenCard.src = `/static/cards/${chosenCard.id}.jpg`;
-                if (window.application.openCard.id === chosenCard.id) {
+            // клик по второй карте
+            chosenCard.src = `/static/cards/${chosenCard.id}.jpg`;
+            chosenCard.removeEventListener("click", cardOnClick);
+            if (window.application.openCard.id === chosenCard.id) {
+                window.application.pairCount--;
+                if (window.application.pairCount === 0) {
                     setTimeout(showWinScreen, 500);
-                    // todo: пометить карты как отгаданные
-                } else {
-                    setTimeout(showLoseScreen, 500);
                 }
-                // todo: очистить openCard
+                window.application.openCard = undefined;
             } else {
-                // та же самая карта, ничего не делаем
-                return;
+                setTimeout(showLoseScreen, 500); //игра заканчивается на этом моменте
             }
         }
     }
