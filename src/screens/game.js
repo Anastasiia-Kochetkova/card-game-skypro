@@ -1,4 +1,4 @@
-import { app, createElement } from "../globals";
+import { app, createElement, imgPath } from "../globals";
 import { cardsData } from "../card-collection";
 
 export function createGameScreen() {
@@ -111,7 +111,7 @@ export function createGameScreen() {
         let imageSrc = undefined;
         cardsData.forEach((element) => {
             if (element.name === name) {
-                imageSrc = element.image;
+                imageSrc = `${imgPath}${element.image}`;
             }
         });
         return imageSrc;
@@ -139,7 +139,7 @@ export function createGameScreen() {
     function flipTheCard() {
         const currentCards = document.querySelectorAll(".image-card");
         currentCards.forEach((element) => {
-            element.src = "./static/cards/back.png";
+            element.src = `${imgPath}back.png`;
         });
         subscribeCardsOnClick();
     }
@@ -155,12 +155,12 @@ export function createGameScreen() {
         const chosenCard = event.target;
         if (window.application.openCard === undefined) {
             // клик по первой карте
-            chosenCard.src = `/static/cards/${chosenCard.id}.jpg`;
+            chosenCard.src = `${imgPath}${chosenCard.id}.jpg`;
             chosenCard.removeEventListener("click", cardOnClick);
             window.application.openCard = chosenCard;
         } else {
             // клик по второй карте
-            chosenCard.src = `/static/cards/${chosenCard.id}.jpg`;
+            chosenCard.src = `${imgPath}${chosenCard.id}.jpg`;
             chosenCard.removeEventListener("click", cardOnClick);
             if (window.application.openCard.id === chosenCard.id) {
                 window.application.pairCount--;

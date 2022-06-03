@@ -21,3 +21,4 @@ export function createElement(tagName, classList, container, textContent) {
     return newElement;
 }
 export const app = document.querySelector(".app");
+export const imgPath = "./static/cards/";
