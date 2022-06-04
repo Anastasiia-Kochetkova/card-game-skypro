@@ -12,16 +12,11 @@ export function createGameScreen() {
     setTimeout(flipTheCard, 5000);
 
     function createResetButton(container) {
-        const startAgainButton = document.createElement("button");
-        startAgainButton.classList.add("button");
-        startAgainButton.textContent = "Начать заново";
-        container.appendChild(startAgainButton);
+        createElement("button", "button", container, "Начать заново");
     }
 
     function createHeadContainer() {
-        const head = document.createElement("div");
-        head.classList.add("head");
-        app.appendChild(head);
+        const head = createElement("div", "head", app);
         return head;
     }
 
@@ -61,13 +56,17 @@ export function createGameScreen() {
     }
 
     function createCardsField() {
-        const containerForField = document.createElement("div");
-        containerForField.classList.add("container-for-field");
-        app.appendChild(containerForField);
+        const containerForField = createElement(
+            "div",
+            "container-for-field",
+            app
+        );
 
-        const cardsField = document.createElement("div");
-        cardsField.classList.add("cards-field");
-        containerForField.appendChild(cardsField);
+        const cardsField = createElement(
+            "div",
+            "cards-field",
+            containerForField
+        );
         return cardsField;
     }
 
@@ -95,16 +94,12 @@ export function createGameScreen() {
     }
 
     function addCardImg(container, name) {
-        const card = document.createElement("div");
-        card.classList.add("card");
-        container.appendChild(card);
+        const card = createElement("div", "card", container);
 
-        const imageCard = document.createElement("img");
-        imageCard.classList.add("image-card");
+        const imageCard = createElement("img", "image-card", card);
         imageCard.id = name;
         imageCard.alt = "card";
         imageCard.src = getImgByName(name);
-        card.appendChild(imageCard);
     }
 
     function getImgByName(name) {
@@ -142,6 +137,7 @@ export function createGameScreen() {
             element.src = `${imgPath}back.png`;
         });
         subscribeCardsOnClick();
+        startTimer();
     }
 
     function subscribeCardsOnClick() {
@@ -180,5 +176,37 @@ export function createGameScreen() {
 
     function showWinScreen() {
         alert("Поздравляю, вы победили!");
+    }
+
+    function startTimer() {
+        const secondElement = document.querySelector(".seconds");
+        const minuteElement = document.querySelector(".minutes");
+
+        let interval;
+        let seconds = 0,
+            minutes = 0;
+
+        clearInterval(interval);
+        interval = setInterval(timerTick, 1000);
+
+        function timerTick() {
+            seconds++;
+            if (seconds <= 9) {
+                secondElement.textContent = "0" + seconds;
+            }
+            if (seconds > 9) {
+                secondElement.textContent = seconds;
+            }
+            if (seconds > 59) {
+                minutes++;
+                seconds = 0;
+                if (minutes < 9) {
+                    minuteElement.textContent = "0" + minutes;
+                }
+                if (seconds > 9) {
+                    minuteElement.textContent = minutes;
+                }
+            }
+        }
     }
 }

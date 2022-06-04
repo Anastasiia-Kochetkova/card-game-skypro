@@ -1,4 +1,4 @@
-import "./styles/style.css";
+import "./styles/style.scss";
 import { createDifficultyScreen } from "./screens/difficulty";
 import { createGameScreen } from "./screens/game";
 import { app } from "./globals";

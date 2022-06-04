@@ -20,7 +20,12 @@ export function createDifficultyScreen() {
         "Сначала необходимо выбрать уровень!"
     );
 
-    const startButton = createElement("button", "button", container, "Старт");
+    const startButton = createElement(
+        "button",
+        ["button", "start-button"],
+        container,
+        "Старт"
+    );
 
     function addLevelImg(id, alt) {
         const levelNumber = createElement(
