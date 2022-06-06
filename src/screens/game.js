@@ -12,7 +12,16 @@ export function createGameScreen() {
     setTimeout(flipTheCard, 5000);
 
     function createResetButton(container) {
-        createElement("button", "button", container, "Начать заново");
+        const resetButton = createElement(
+            "button",
+            "button",
+            container,
+            "Начать заново"
+        );
+
+        resetButton.addEventListener("click", function () {
+            window.application.renderScreen("game");
+        });
     }
 
     function createHeadContainer() {
@@ -103,7 +112,7 @@ export function createGameScreen() {
     }
 
     function getImgByName(name) {
-        let imageSrc = undefined;
+        let imageSrc;
         cardsData.forEach((element) => {
             if (element.name === name) {
                 imageSrc = `${imgPath}${element.image}`;
@@ -149,13 +158,11 @@ export function createGameScreen() {
 
     function cardOnClick(event) {
         const chosenCard = event.target;
-        if (window.application.openCard === undefined) {
-            // клик по первой карте
+        if (!window.application.openCard) {
             chosenCard.src = `${imgPath}${chosenCard.id}.jpg`;
             chosenCard.removeEventListener("click", cardOnClick);
             window.application.openCard = chosenCard;
         } else {
-            // клик по второй карте
             chosenCard.src = `${imgPath}${chosenCard.id}.jpg`;
             chosenCard.removeEventListener("click", cardOnClick);
             if (window.application.openCard.id === chosenCard.id) {
@@ -196,6 +203,9 @@ export function createGameScreen() {
             }
             if (seconds > 9) {
                 secondElement.textContent = seconds;
+                if (seconds === 60) {
+                    secondElement.textContent = "00";
+                }
             }
             if (seconds > 59) {
                 minutes++;
@@ -203,7 +213,7 @@ export function createGameScreen() {
                 if (minutes < 9) {
                     minuteElement.textContent = "0" + minutes;
                 }
-                if (seconds > 9) {
+                if (minutes > 9) {
                     minuteElement.textContent = minutes;
                 }
             }

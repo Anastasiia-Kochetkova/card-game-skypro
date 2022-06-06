@@ -54,7 +54,7 @@ export function createDifficultyScreen() {
     }
 
     startButton.addEventListener("click", function () {
-        if (window.application.difficulty === undefined) {
+        if (!window.application.difficulty) {
             warning.classList.remove("warning_hidden");
             return;
         }
