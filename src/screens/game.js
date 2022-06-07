@@ -20,6 +20,8 @@ export function createGameScreen() {
         );
 
         resetButton.addEventListener("click", function () {
+            window.application.pairCount = undefined;
+            window.application.openCard = undefined;
             window.application.renderScreen("game");
         });
     }
@@ -182,7 +184,7 @@ export function createGameScreen() {
     }
 
     function showWinScreen() {
-        alert("Поздравляю, вы победили!");
+        alert("Поздравляю! Вы выйграли!");
     }
 
     function startTimer() {
