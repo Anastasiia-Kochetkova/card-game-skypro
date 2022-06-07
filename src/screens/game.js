@@ -1,6 +1,7 @@
-/*global app, cardsData, createElement*/
+import { app, createElement, imgPath } from "../globals";
+import { cardsData } from "../card-collection";
 
-window.application.screens["game"] = function () {
+export function createGameScreen() {
     const head = createHeadContainer();
     createTimer(head);
     createResetButton(head);
@@ -11,16 +12,22 @@ window.application.screens["game"] = function () {
     setTimeout(flipTheCard, 5000);
 
     function createResetButton(container) {
-        const startAgainButton = document.createElement("button");
-        startAgainButton.classList.add("button");
-        startAgainButton.textContent = "Начать заново";
-        container.appendChild(startAgainButton);
+        const resetButton = createElement(
+            "button",
+            "button",
+            container,
+            "Начать заново"
+        );
+
+        resetButton.addEventListener("click", function () {
+            window.application.pairCount = undefined;
+            window.application.openCard = undefined;
+            window.application.renderScreen("game");
+        });
     }
 
     function createHeadContainer() {
-        const head = document.createElement("div");
-        head.classList.add("head");
-        app.appendChild(head);
+        const head = createElement("div", "head", app);
         return head;
     }
 
@@ -38,6 +45,8 @@ window.application.screens["game"] = function () {
         } else if (window.application.difficulty === "3") {
             pairCount = 9;
         }
+
+        window.application.pairCount = pairCount;
 
         let pairCards = [];
         for (let i = 0; i < pairCount; i++) {
@@ -58,13 +67,17 @@ window.application.screens["game"] = function () {
     }
 
     function createCardsField() {
-        const containerForField = document.createElement("div");
-        containerForField.classList.add("container-for-field");
-        app.appendChild(containerForField);
+        const containerForField = createElement(
+            "div",
+            "container-for-field",
+            app
+        );
 
-        const cardsField = document.createElement("div");
-        cardsField.classList.add("cards-field");
-        containerForField.appendChild(cardsField);
+        const cardsField = createElement(
+            "div",
+            "cards-field",
+            containerForField
+        );
         return cardsField;
     }
 
@@ -92,23 +105,19 @@ window.application.screens["game"] = function () {
     }
 
     function addCardImg(container, name) {
-        const card = document.createElement("div");
-        card.classList.add("card");
-        container.appendChild(card);
+        const card = createElement("div", "card", container);
 
-        const imageCard = document.createElement("img");
-        imageCard.classList.add("image-card");
+        const imageCard = createElement("img", "image-card", card);
         imageCard.id = name;
         imageCard.alt = "card";
-        imageCard.src = getImgByName(name); //  Попробовать делать массив из чисел индексов, а не строк из поля name. меньше циклов.
-        card.appendChild(imageCard);
+        imageCard.src = getImgByName(name);
     }
 
     function getImgByName(name) {
-        let imageSrc = undefined;
+        let imageSrc;
         cardsData.forEach((element) => {
             if (element.name === name) {
-                imageSrc = element.image;
+                imageSrc = `${imgPath}${element.image}`;
             }
         });
         return imageSrc;
@@ -136,7 +145,80 @@ window.application.screens["game"] = function () {
     function flipTheCard() {
         const currentCards = document.querySelectorAll(".image-card");
         currentCards.forEach((element) => {
-            element.src = "./cards/back.png";
+            element.src = `${imgPath}back.png`;
+        });
+        subscribeCardsOnClick();
+        startTimer();
+    }
+
+    function subscribeCardsOnClick() {
+        const cards = document.querySelectorAll(".image-card");
+        cards.forEach((element) => {
+            element.addEventListener("click", cardOnClick);
         });
     }
-};
+
+    function cardOnClick(event) {
+        const chosenCard = event.target;
+        if (!window.application.openCard) {
+            chosenCard.src = `${imgPath}${chosenCard.id}.jpg`;
+            chosenCard.removeEventListener("click", cardOnClick);
+            window.application.openCard = chosenCard;
+        } else {
+            chosenCard.src = `${imgPath}${chosenCard.id}.jpg`;
+            chosenCard.removeEventListener("click", cardOnClick);
+            if (window.application.openCard.id === chosenCard.id) {
+                window.application.pairCount--;
+                if (window.application.pairCount === 0) {
+                    setTimeout(showWinScreen, 500);
+                }
+                window.application.openCard = undefined;
+            } else {
+                setTimeout(showLoseScreen, 500); //игра заканчивается на этом моменте
+            }
+        }
+    }
+
+    function showLoseScreen() {
+        alert("Вы проиграли эту битву (((");
+    }
+
+    function showWinScreen() {
+        alert("Поздравляю! Вы выйграли!");
+    }
+
+    function startTimer() {
+        const secondElement = document.querySelector(".seconds");
+        const minuteElement = document.querySelector(".minutes");
+
+        let interval;
+        let seconds = 0,
+            minutes = 0;
+
+        clearInterval(interval);
+        interval = setInterval(timerTick, 1000);
+
+        function timerTick() {
+            seconds++;
+            if (seconds <= 9) {
+                secondElement.textContent = "0" + seconds;
+            }
+            if (seconds > 9) {
+                secondElement.textContent = seconds;
+                if (seconds === 60) {
+                    secondElement.textContent = "00";
+                }
+            }
+            if (seconds > 59) {
+                minutes++;
+                seconds = 0;
+                if (minutes < 9) {
+                    minuteElement.textContent = "0" + minutes;
+                }
+                if (minutes > 9) {
+                    minuteElement.textContent = minutes;
+                }
+            }
+        }
+    }
+}

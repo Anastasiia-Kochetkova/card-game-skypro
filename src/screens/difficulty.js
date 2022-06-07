@@ -1,6 +1,6 @@
-/*global app, createElement*/
+import { app, createElement } from "../globals";
 
-window.application.screens["difficulty"] = function () {
+export function createDifficultyScreen() {
     const mainContainer = createElement("div", "main-container", app);
 
     const container = createElement("div", "container", mainContainer);
@@ -20,7 +20,12 @@ window.application.screens["difficulty"] = function () {
         "Сначала необходимо выбрать уровень!"
     );
 
-    const startButton = createElement("button", "button", container, "Старт");
+    const startButton = createElement(
+        "button",
+        ["button", "start-button"],
+        container,
+        "Старт"
+    );
 
     function addLevelImg(id, alt) {
         const levelNumber = createElement(
@@ -29,7 +34,7 @@ window.application.screens["difficulty"] = function () {
             levelsNumbers
         );
         levelNumber.id = id;
-        levelNumber.src = `image/${id}.png`;
+        levelNumber.src = `static/image/${id}.png`;
         levelNumber.alt = alt;
     }
 
@@ -49,11 +54,11 @@ window.application.screens["difficulty"] = function () {
     }
 
     startButton.addEventListener("click", function () {
-        if (window.application.difficulty === undefined) {
+        if (!window.application.difficulty) {
             warning.classList.remove("warning_hidden");
             return;
         }
 
         window.application.renderScreen("game");
     });
-};
+}

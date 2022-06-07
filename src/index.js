@@ -1,14 +1,20 @@
-const app = document.querySelector(".app");
+import "./styles/style.scss";
+import { createDifficultyScreen } from "./screens/difficulty";
+import { createGameScreen } from "./screens/game";
+import { app } from "./globals";
+
 window.application = {
-    blocks: {},
     screens: {},
     renderScreen(screenName) {
         app.textContent = "";
         this.screens[screenName]();
     },
-    renderBlock(blockName, container) {
-        this.blocks[blockName](container);
-    },
+    openCard: undefined,
     timers: [],
     difficulty: undefined,
+    pairCount: undefined,
 };
+window.application.screens["difficulty"] = createDifficultyScreen;
+window.application.screens["game"] = createGameScreen;
+
+window.application.renderScreen("difficulty");
