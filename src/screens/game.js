@@ -170,21 +170,31 @@ export function createGameScreen() {
             if (window.application.openCard.id === chosenCard.id) {
                 window.application.pairCount--;
                 if (window.application.pairCount === 0) {
+                    saveTimer();
                     setTimeout(showWinScreen, 500);
                 }
                 window.application.openCard = undefined;
             } else {
-                setTimeout(showLoseScreen, 500); //игра заканчивается на этом моменте
+                saveTimer();
+                setTimeout(showLoseScreen, 500);
             }
         }
     }
 
+    function saveTimer() {
+        const secondElement = document.querySelector(".seconds");
+        const minuteElement = document.querySelector(".minutes");
+        const resultTime = `${minuteElement.textContent}.${secondElement.textContent}`;
+        window.application.timer = resultTime;
+        clearInterval(window.application.timerId);
+    }
+
     function showLoseScreen() {
-        alert("Вы проиграли эту битву (((");
+        window.application.renderScreen("result", false);
     }
 
     function showWinScreen() {
-        alert("Поздравляю! Вы выйграли!");
+        window.application.renderScreen("result", false);
     }
 
     function startTimer() {
@@ -195,8 +205,8 @@ export function createGameScreen() {
         let seconds = 0,
             minutes = 0;
 
-        clearInterval(interval);
         interval = setInterval(timerTick, 1000);
+        window.application.timerId = interval;
 
         function timerTick() {
             seconds++;
