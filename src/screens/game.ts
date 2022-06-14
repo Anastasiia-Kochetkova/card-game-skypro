@@ -11,7 +11,7 @@ export function createGameScreen() {
 
     setTimeout(flipTheCard, 5000);
 
-    function createResetButton(container) {
+    function createResetButton(container: HTMLElement): void {
         const resetButton = createElement(
             "button",
             "button",
@@ -31,13 +31,13 @@ export function createGameScreen() {
         return head;
     }
 
-    function fillWithCards(container) {
+    function fillWithCards(container: HTMLElement): void {
         let allCards = [];
         for (let indexCard = 0; indexCard < cardsData.length; indexCard++) {
             allCards.push(cardsData[indexCard].name);
         }
 
-        let pairCount = undefined;
+        let pairCount = 0;
         if (window.application.difficulty === "1") {
             pairCount = 3;
         } else if (window.application.difficulty === "2") {
@@ -81,7 +81,7 @@ export function createGameScreen() {
         return cardsField;
     }
 
-    function createTimer(container) {
+    function createTimer(container: HTMLElement): void {
         let classList;
 
         const timer = createElement("div", "timer", container);
@@ -104,7 +104,7 @@ export function createGameScreen() {
         createElement("div", classList, timerBlockSec, "00");
     }
 
-    function addCardImg(container, name) {
+    function addCardImg(container: HTMLElement, name: string) {
         const card = createElement("div", "card", container);
 
         const imageCard = createElement("img", "image-card", card);
@@ -113,7 +113,7 @@ export function createGameScreen() {
         imageCard.src = getImgByName(name);
     }
 
-    function getImgByName(name) {
+    function getImgByName(name: string) {
         let imageSrc;
         cardsData.forEach((element) => {
             if (element.name === name) {
@@ -123,7 +123,7 @@ export function createGameScreen() {
         return imageSrc;
     }
 
-    function shuffle(array) {
+    function shuffle(array: string[]) {
         let currentIndex = array.length,
             randomIndex;
 
@@ -144,7 +144,7 @@ export function createGameScreen() {
 
     function flipTheCard() {
         const currentCards = document.querySelectorAll(".image-card");
-        currentCards.forEach((element) => {
+        currentCards.forEach((element:any) => {
             element.src = `${imgPath}back.png`;
         });
         subscribeCardsOnClick();
@@ -158,7 +158,7 @@ export function createGameScreen() {
         });
     }
 
-    function cardOnClick(event) {
+    function cardOnClick(event: any) {
         const chosenCard = event.target;
         if (!window.application.openCard) {
             chosenCard.src = `${imgPath}${chosenCard.id}.jpg`;
@@ -184,8 +184,10 @@ export function createGameScreen() {
     function saveTimer() {
         const secondElement = document.querySelector(".seconds");
         const minuteElement = document.querySelector(".minutes");
-        const resultTime = `${minuteElement.textContent}.${secondElement.textContent}`;
-        window.application.timer = resultTime;
+        if (secondElement !== null && minuteElement !== null) {
+            const resultTime = `${minuteElement.textContent}.${secondElement.textContent}`;
+            window.application.timer = resultTime;
+        }
         clearInterval(window.application.timerId);
     }
 
@@ -209,12 +211,15 @@ export function createGameScreen() {
         window.application.timerId = interval;
 
         function timerTick() {
+            if (secondElement === null || minuteElement === null) {
+                return
+            }
             seconds++;
             if (seconds <= 9) {
                 secondElement.textContent = "0" + seconds;
             }
             if (seconds > 9) {
-                secondElement.textContent = seconds;
+                secondElement.textContent = String(seconds);
                 if (seconds === 60) {
                     secondElement.textContent = "00";
                 }
@@ -226,7 +231,7 @@ export function createGameScreen() {
                     minuteElement.textContent = "0" + minutes;
                 }
                 if (minutes > 9) {
-                    minuteElement.textContent = minutes;
+                    minuteElement.textContent = String(minutes);
                 }
             }
         }

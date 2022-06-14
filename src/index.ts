@@ -6,8 +6,8 @@ import { app } from "./globals";
 
 window.application = {
     screens: {},
-    renderScreen(screenName, clear = true) {
-        if (clear) {
+    renderScreen(screenName: string, clear = true) {
+        if (clear && app !== null) {
             app.textContent = "";
         }
         this.screens[screenName]();

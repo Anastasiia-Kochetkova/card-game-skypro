@@ -1,15 +1,5 @@
 import { app, createElement } from "../globals";
 
-/*<div class="result">
-    <img src="/static/image/win.png" alt="win-picture">
-    <h2 class="result__header">Вы Выйграли!</h2>
-    <div class="result__time-block">
-        <h3 class="result__time-block_header">Затраченное время</h3>
-        <h1 class="result__time-block_value">01.20</h1>
-    </div>
-    <button class="button"></button>
-</div>*/
-
 export function createResultScreen() {
     const mainContainer = createMainContainer();
     const container = createResultContainer();
@@ -24,10 +14,12 @@ export function createResultScreen() {
     createAgainButton();
 
     function createMainContainer() {
-        const resultContainer = createElement("div", "result__container");
-        const firstChild = app.firstElementChild;
-        app.insertBefore(resultContainer, firstChild);
-        return resultContainer;
+        if (app !== null) {
+            const resultContainer = createElement("div", "result__container");
+            const firstChild = app.firstElementChild;
+            app.insertBefore(resultContainer, firstChild);
+            return resultContainer;
+        }
     }
 
     function createResultContainer() {
@@ -35,14 +27,14 @@ export function createResultScreen() {
         return resultContainer;
     }
 
-    function addResultImg(result) {
+    function addResultImg(result:string) {
         const imageResult = createElement("img", "result__img", container);
         imageResult.src = `/static/image/${result}.png`;
         imageResult.alt = `${result}-picture`;
         return imageResult;
     }
 
-    function createResultTitle(resultMessage) {
+    function createResultTitle(resultMessage:string) {
         const resultTitle = createElement(
             "h2",
             "result__header",

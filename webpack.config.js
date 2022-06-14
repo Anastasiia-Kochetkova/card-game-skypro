@@ -5,7 +5,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
-    entry: "./src/index.js",
+    entry: "./src/index.ts",
     output: {
         filename: "bundle.js",
         clean: true,
@@ -14,6 +14,11 @@ module.exports = {
     mode: process.env.NODE_ENV,
     module: {
         rules: [
+            {
+                test: /\.ts$/,
+                use: "ts-loader",
+                exclude: /node_modules/,
+            },
             {
                 test: /\.(sa|sc|c)ss$/i,
                 use: [miniCss.loader, "css-loader", "sass-loader"],
@@ -27,6 +32,9 @@ module.exports = {
                 type: "asset/resource",
             },
         ],
+    },
+    resolve: {
+        extensions: [".ts", ".js"],
     },
     optimization: {
         minimizer: ["...", new CssMinimizerPlugin()],

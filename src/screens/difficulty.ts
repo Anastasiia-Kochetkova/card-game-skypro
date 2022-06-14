@@ -27,7 +27,7 @@ export function createDifficultyScreen() {
         "Старт"
     );
 
-    function addLevelImg(id, alt) {
+    function addLevelImg(id:string, alt:string) {
         const levelNumber = createElement(
             "img",
             "level__number",
@@ -44,7 +44,7 @@ export function createDifficultyScreen() {
         level.addEventListener("click", onClickDifficulty);
     });
 
-    function onClickDifficulty(event) {
+    function onClickDifficulty(event:any) {
         levels.forEach((level) => {
             level.classList.remove("current-level");
         });
