@@ -2,16 +2,13 @@ import { app, createElement } from "../globals";
 
 export function createDifficultyScreen() {
     const mainContainer = createElement("div", "main-container", app);
-
     const container = createElement("div", "container", mainContainer);
-
     createElement("h1", "title", container, "Выбери сложность");
-
     const levelsNumbers = createElement("div", "level", container);
 
-    addLevelImg("1", "one");
-    addLevelImg("2", "two");
-    addLevelImg("3", "three");
+    addLevelImg("1", "one", levelsNumbers);
+    addLevelImg("2", "two", levelsNumbers);
+    addLevelImg("3", "three", levelsNumbers);
 
     const warning = createElement(
         "h1",
@@ -26,18 +23,19 @@ export function createDifficultyScreen() {
         container,
         "Старт"
     );
+    addEventListenerToLevels(warning);
 
-    function addLevelImg(id:string, alt:string) {
-        const levelNumber = createElement(
-            "img",
-            "level__number",
-            levelsNumbers
-        );
-        levelNumber.id = id;
-        levelNumber.src = `static/image/${id}.png`;
-        levelNumber.alt = alt;
-    }
+    startButton.addEventListener("click", function () {
+        if (!window.application.difficulty) {
+            warning.classList.remove("warning_hidden");
+            return;
+        }
+        
+        window.application.renderScreen("game");
+    });
+}
 
+function addEventListenerToLevels(warning:HTMLElement) {
     const levels = document.querySelectorAll(".level__number");
 
     levels.forEach((level) => {
@@ -52,13 +50,15 @@ export function createDifficultyScreen() {
         event.target.classList.add("current-level");
         window.application.difficulty = event.target.id;
     }
-
-    startButton.addEventListener("click", function () {
-        if (!window.application.difficulty) {
-            warning.classList.remove("warning_hidden");
-            return;
-        }
-
-        window.application.renderScreen("game");
-    });
 }
+
+function addLevelImg(id:string, alt:string, container: HTMLElement) {
+    const levelNumber = createElement(
+        "img",
+        "level__number",
+        container
+        );
+        levelNumber.id = id;
+        levelNumber.src = `static/image/${id}.png`;
+        levelNumber.alt = alt;
+    }
