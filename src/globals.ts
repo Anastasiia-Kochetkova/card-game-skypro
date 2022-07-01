@@ -1,4 +1,4 @@
-export function createElement(tagName:string, classList:string|string[], container?:HTMLElement, textContent?:string):any {
+export function createElement(tagName:string, classList:string|string[], container?:HTMLElement, textContent?:string):HTMLElement {
     const newElement = document.createElement(tagName);
     if (classList !== undefined) {
         if (typeof classList === "string") {

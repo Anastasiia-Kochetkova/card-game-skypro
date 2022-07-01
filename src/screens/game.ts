@@ -10,7 +10,6 @@ export function createGameScreen() {
     fillWithCards(cardsField);
 
     setTimeout(flipTheCard, 5000);
-
 }
 function createResetButton(container: HTMLElement): void {
     const resetButton = createElement(
@@ -68,17 +67,9 @@ function fillWithCards(container: HTMLElement): void {
 }
 
 function createCardsField() {
-    const containerForField = createElement(
-        "div",
-        "container-for-field",
-        app
-    );
+    const containerForField = createElement("div", "container-for-field", app);
 
-    const cardsField = createElement(
-        "div",
-        "cards-field",
-        containerForField
-    );
+    const cardsField = createElement("div", "cards-field", containerForField);
     return cardsField;
 }
 
@@ -108,14 +99,16 @@ function createTimer(container: HTMLElement): void {
 function addCardImg(container: HTMLElement, name: string) {
     const card = createElement("div", "card", container);
 
-    const imageCard = createElement("img", "image-card", card);
+    const imageCard = <HTMLImageElement>(
+        createElement("img", "image-card", card)
+    );
     imageCard.id = name;
     imageCard.alt = "card";
     imageCard.src = getImgByName(name);
 }
 
-function getImgByName(name: string) {
-    let imageSrc;
+function getImgByName(name: string): string {
+    let imageSrc = "";
     cardsData.forEach((element) => {
         if (element.name === name) {
             imageSrc = `${imgPath}${element.image}`;
@@ -144,8 +137,10 @@ function shuffle(array: string[]) {
 }
 
 function flipTheCard() {
-    const currentCards = document.querySelectorAll(".image-card");
-    currentCards.forEach((element:any) => {
+    const currentCards = <NodeListOf<HTMLImageElement>>(
+        document.querySelectorAll(".image-card")
+    );
+    currentCards.forEach((element) => {
         element.src = `${imgPath}back.png`;
     });
     subscribeCardsOnClick();
@@ -153,14 +148,17 @@ function flipTheCard() {
 }
 
 function subscribeCardsOnClick() {
-    const cards = document.querySelectorAll(".image-card");
+    const cards = <NodeListOf<HTMLImageElement>> document.querySelectorAll(".image-card");
     cards.forEach((element) => {
         element.addEventListener("click", cardOnClick);
     });
 }
 
-function cardOnClick(event: any) {
-    const chosenCard = event.target;
+function cardOnClick(event: MouseEvent) {
+    const chosenCard = <HTMLImageElement> event.target;
+    if (chosenCard == null) {
+        return;
+    }
     if (!window.application.openCard) {
         chosenCard.src = `${imgPath}${chosenCard.id}.jpg`;
         chosenCard.removeEventListener("click", cardOnClick);
@@ -168,7 +166,7 @@ function cardOnClick(event: any) {
     } else {
         chosenCard.src = `${imgPath}${chosenCard.id}.jpg`;
         chosenCard.removeEventListener("click", cardOnClick);
-        if (window.application.openCard.id === chosenCard.id) {
+        if (window.application.openCard.id === chosenCard.id && window.application.pairCount ) {
             window.application.pairCount--;
             if (window.application.pairCount === 0) {
                 saveTimer();
@@ -213,7 +211,7 @@ function startTimer() {
 
     function timerTick() {
         if (secondElement === null || minuteElement === null) {
-            return
+            return;
         }
         seconds++;
         if (seconds <= 9) {

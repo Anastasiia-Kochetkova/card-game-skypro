@@ -36,24 +36,28 @@ export function createDifficultyScreen() {
 }
 
 function addEventListenerToLevels(warning:HTMLElement) {
-    const levels = document.querySelectorAll(".level__number");
+    const levels = <NodeListOf<HTMLElement>> document.querySelectorAll(".level__number");
 
     levels.forEach((level) => {
         level.addEventListener("click", onClickDifficulty);
     });
 
-    function onClickDifficulty(event:any) {
+    function onClickDifficulty(event:MouseEvent) {
+        const target = <HTMLElement> event.target;
+        if (target === null){
+            return;
+        }
         levels.forEach((level) => {
             level.classList.remove("current-level");
         });
         warning.classList.add("warning_hidden");
-        event.target.classList.add("current-level");
-        window.application.difficulty = event.target.id;
+        target.classList.add("current-level");
+        window.application.difficulty = target.id;
     }
 }
 
 function addLevelImg(id:string, alt:string, container: HTMLElement) {
-    const levelNumber = createElement(
+    const levelNumber = <HTMLImageElement> createElement(
         "img",
         "level__number",
         container

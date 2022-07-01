@@ -1,7 +1,7 @@
 import { app, createElement } from "../globals";
 
 export function createResultScreen() {
-    const mainContainer = createMainContainer();
+    const mainContainer = <HTMLElement> createMainContainer();
     const container = createResultContainer(mainContainer);
     if (window.application.pairCount === 0) {
         addResultImg("win", container);
@@ -29,7 +29,7 @@ function createResultContainer(mainContainer:HTMLElement) {
 }
 
 function addResultImg(result:string, container:HTMLElement) {
-    const imageResult = createElement("img", "result__img", container);
+    const imageResult = <HTMLImageElement> createElement("img", "result__img", container);
     imageResult.src = `/static/image/${result}.png`;
     imageResult.alt = `${result}-picture`;
     return imageResult;
