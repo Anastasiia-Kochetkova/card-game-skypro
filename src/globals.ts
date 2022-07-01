@@ -1,4 +1,4 @@
-export function createElement(tagName, classList, container, textContent) {
+export function createElement(tagName:string, classList:string|string[], container?:HTMLElement, textContent?:string):HTMLElement {
     const newElement = document.createElement(tagName);
     if (classList !== undefined) {
         if (typeof classList === "string") {
@@ -20,5 +20,5 @@ export function createElement(tagName, classList, container, textContent) {
 
     return newElement;
 }
-export const app = document.querySelector(".app");
+export const app = <HTMLElement> document.querySelector(".app");
 export const imgPath = "./static/cards/";
