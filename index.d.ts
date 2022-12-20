@@ -11,8 +11,13 @@ type App = {
     openCard?: HTMLImageElement;
     timerId?: NodeJS.Timer;
     timer?: string;
-    difficulty?: string;
+    difficulty?: DifficultySetting;
     pairCount?: number;
 };
 
+export type DifficultySetting = {
+    cardsPairs: number;
+};
+
 export type ScreenName = "difficulty" | "game" | "result";
+export type DifficultyName = "1" | "2" | "3";

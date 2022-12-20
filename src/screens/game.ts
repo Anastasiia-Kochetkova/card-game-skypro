@@ -1,4 +1,4 @@
-import { app, createElement, imgPath } from "../globals";
+import { app, createElement, difficultySettings, imgPath } from "../globals";
 import { cardsData } from "../card-collection";
 
 export function createGameScreen() {
@@ -38,15 +38,9 @@ function fillWithCards(container: HTMLElement): void {
     }
 
     let pairCount = 0;
-    if (window.application.difficulty === "1") {
-        pairCount = 3;
-    } else if (window.application.difficulty === "2") {
-        pairCount = 6;
-    } else if (window.application.difficulty === "3") {
-        pairCount = 9;
+    if (window.application.difficulty) {
+        pairCount = window.application.difficulty.cardsPairs;
     }
-
-    window.application.pairCount = pairCount;
 
     const pairCards = [];
     for (let i = 0; i < pairCount; i++) {

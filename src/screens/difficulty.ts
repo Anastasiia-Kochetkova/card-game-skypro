@@ -1,4 +1,5 @@
-import { app, createElement } from "../globals";
+import { app, createElement, difficultySettings } from "../globals";
+import { DifficultyName } from "../../index.d";
 
 export function createDifficultyScreen() {
     const mainContainer = createElement("div", "main-container", app);
@@ -30,21 +31,23 @@ export function createDifficultyScreen() {
             warning.classList.remove("warning_hidden");
             return;
         }
-        
+
         window.application.renderScreen("game");
     });
 }
 
-function addEventListenerToLevels(warning:HTMLElement) {
-    const levels = <NodeListOf<HTMLElement>> document.querySelectorAll(".level__number");
+function addEventListenerToLevels(warning: HTMLElement) {
+    const levels = <NodeListOf<HTMLElement>>(
+        document.querySelectorAll(".level__number")
+    );
 
     levels.forEach((level) => {
         level.addEventListener("click", onClickDifficulty);
     });
 
-    function onClickDifficulty(event:MouseEvent) {
-        const target = <HTMLElement> event.target;
-        if (target === null){
+    function onClickDifficulty(event: MouseEvent) {
+        const target = <HTMLElement>event.target;
+        if (target === null) {
             return;
         }
         levels.forEach((level) => {
@@ -52,17 +55,17 @@ function addEventListenerToLevels(warning:HTMLElement) {
         });
         warning.classList.add("warning_hidden");
         target.classList.add("current-level");
-        window.application.difficulty = target.id;
+
+        const difficultyName = target.id as DifficultyName;
+        window.application.difficulty = difficultySettings[difficultyName];
     }
 }
 
-function addLevelImg(id:string, alt:string, container: HTMLElement) {
-    const levelNumber = <HTMLImageElement> createElement(
-        "img",
-        "level__number",
-        container
-        );
-        levelNumber.id = id;
-        levelNumber.src = `static/image/${id}.png`;
-        levelNumber.alt = alt;
-    }
+function addLevelImg(id: string, alt: string, container: HTMLElement) {
+    const levelNumber = <HTMLImageElement>(
+        createElement("img", "level__number", container)
+    );
+    levelNumber.id = id;
+    levelNumber.src = `static/image/${id}.png`;
+    levelNumber.alt = alt;
+}
