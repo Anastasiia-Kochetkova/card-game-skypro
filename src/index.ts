@@ -3,14 +3,19 @@ import { createDifficultyScreen } from "./screens/difficulty";
 import { createGameScreen } from "./screens/game";
 import { createResultScreen } from "./screens/result";
 import { app } from "./globals";
+import { ScreenName } from "../index.d";
 
 window.application = {
-    screens: {},
-    renderScreen(screenName: string, clear = true) {
+    screens: {
+        "difficulty": createDifficultyScreen,
+        "game": createGameScreen,
+        "result": createResultScreen
+    },
+    renderScreen(screen: ScreenName, clear = true):void {
         if (clear && app !== null) {
             app.textContent = "";
         }
-        this.screens[screenName]();
+        this.screens[screen]();
     },
     openCard: undefined,
     timerId: undefined,
@@ -18,9 +23,5 @@ window.application = {
     difficulty: undefined,
     pairCount: undefined,
 };
-
-window.application.screens["difficulty"] = createDifficultyScreen;
-window.application.screens["game"] = createGameScreen;
-window.application.screens["result"] = createResultScreen;
 
 window.application.renderScreen("difficulty");

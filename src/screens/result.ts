@@ -1,7 +1,7 @@
 import { app, createElement } from "../globals";
 
 export function createResultScreen() {
-    const mainContainer = <HTMLElement> createMainContainer();
+    const mainContainer = <HTMLElement>createMainContainer();
     const container = createResultContainer(mainContainer);
     if (window.application.pairCount === 0) {
         addResultImg("win", container);
@@ -23,19 +23,21 @@ function createMainContainer() {
     }
 }
 
-function createResultContainer(mainContainer:HTMLElement) {
+function createResultContainer(mainContainer: HTMLElement) {
     const resultContainer = createElement("div", "result", mainContainer);
     return resultContainer;
 }
 
-function addResultImg(result:string, container:HTMLElement) {
-    const imageResult = <HTMLImageElement> createElement("img", "result__img", container);
+function addResultImg(result: string, container: HTMLElement) {
+    const imageResult = <HTMLImageElement>(
+        createElement("img", "result__img", container)
+    );
     imageResult.src = `/static/image/${result}.png`;
     imageResult.alt = `${result}-picture`;
     return imageResult;
 }
 
-function createResultTitle(resultMessage:string, container:HTMLElement) {
+function createResultTitle(resultMessage: string, container: HTMLElement) {
     const resultTitle = createElement(
         "h2",
         "result__header",
@@ -45,7 +47,7 @@ function createResultTitle(resultMessage:string, container:HTMLElement) {
     return resultTitle;
 }
 
-function createTimeBlock(container:HTMLElement) {
+function createTimeBlock(container: HTMLElement) {
     const timeBlock = createElement("div", "result__time-block", container);
 
     createElement(
@@ -64,7 +66,7 @@ function createTimeBlock(container:HTMLElement) {
     return timeBlock;
 }
 
-function createAgainButton(container:HTMLElement) {
+function createAgainButton(container: HTMLElement) {
     const againButton = createElement(
         "button",
         "button",
