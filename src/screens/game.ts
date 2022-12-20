@@ -32,7 +32,7 @@ function createHeadContainer() {
 }
 
 function fillWithCards(container: HTMLElement): void {
-    let allCards = [];
+    const allCards = [];
     for (let indexCard = 0; indexCard < cardsData.length; indexCard++) {
         allCards.push(cardsData[indexCard].name);
     }
@@ -48,10 +48,10 @@ function fillWithCards(container: HTMLElement): void {
 
     window.application.pairCount = pairCount;
 
-    let pairCards = [];
+    const pairCards = [];
     for (let i = 0; i < pairCount; i++) {
-        let randomIndex = Math.floor(Math.random() * allCards.length);
-        let randomElement = allCards[randomIndex];
+        const randomIndex = Math.floor(Math.random() * allCards.length);
+        const randomElement = allCards[randomIndex];
 
         allCards.splice(randomIndex, 1);
 
@@ -148,14 +148,16 @@ function flipTheCard() {
 }
 
 function subscribeCardsOnClick() {
-    const cards = <NodeListOf<HTMLImageElement>> document.querySelectorAll(".image-card");
+    const cards = <NodeListOf<HTMLImageElement>>(
+        document.querySelectorAll(".image-card")
+    );
     cards.forEach((element) => {
         element.addEventListener("click", cardOnClick);
     });
 }
 
 function cardOnClick(event: MouseEvent) {
-    const chosenCard = <HTMLImageElement> event.target;
+    const chosenCard = <HTMLImageElement>event.target;
     if (chosenCard == null) {
         return;
     }
@@ -166,7 +168,10 @@ function cardOnClick(event: MouseEvent) {
     } else {
         chosenCard.src = `${imgPath}${chosenCard.id}.jpg`;
         chosenCard.removeEventListener("click", cardOnClick);
-        if (window.application.openCard.id === chosenCard.id && window.application.pairCount ) {
+        if (
+            window.application.openCard.id === chosenCard.id &&
+            window.application.pairCount
+        ) {
             window.application.pairCount--;
             if (window.application.pairCount === 0) {
                 saveTimer();
