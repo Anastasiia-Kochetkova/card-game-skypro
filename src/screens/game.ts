@@ -9,7 +9,7 @@ export function createGameScreen() {
     const cardsField = createCardsField();
     fillWithCards(cardsField);
 
-    setTimeout(flipTheCard, 5000);
+    setTimeout(startRound, 5000);
 }
 function createResetButton(container: HTMLElement): void {
     const resetButton = createElement(
@@ -32,32 +32,50 @@ function createHeadContainer() {
 }
 
 function fillWithCards(container: HTMLElement): void {
-    const allCards = [];
-    for (let indexCard = 0; indexCard < cardsData.length; indexCard++) {
-        allCards.push(cardsData[indexCard].name);
-    }
+    const pairCards = getRandomPairs();
+    shuffle(pairCards);
+    pairCards.forEach((element) => {
+        addCardImg(container, element);
+    });
+}
 
+function getPairCount() {
     let pairCount = 0;
     if (window.application.difficulty) {
         pairCount = window.application.difficulty.cardsPairs;
     }
+    return pairCount;
+}
 
-    const pairCards = [];
+function setPairCount() {
+    if (window.application.difficulty) {
+        window.application.pairCount = window.application.difficulty.cardsPairs;
+    } 
+}
+
+function getRandomPairs() {
+    const allCards: string[] = getAllCards();
+    const pairCount = getPairCount();
+    const pairCards: string[] = [];
+
     for (let i = 0; i < pairCount; i++) {
         const randomIndex = Math.floor(Math.random() * allCards.length);
-        const randomElement = allCards[randomIndex];
 
+        const randomElement = allCards[randomIndex];
         allCards.splice(randomIndex, 1);
 
         pairCards.push(randomElement);
         pairCards.push(randomElement);
     }
+    return pairCards;
+}
 
-    shuffle(pairCards);
-
-    pairCards.forEach((element) => {
-        addCardImg(container, element);
-    });
+function getAllCards() {
+    const allCards: string[] = [];
+    for (let indexCard = 0; indexCard < cardsData.length; indexCard++) {
+        allCards.push(cardsData[indexCard].name);
+    }
+    return allCards;
 }
 
 function createCardsField() {
@@ -127,18 +145,22 @@ function shuffle(array: string[]) {
             array[currentIndex],
         ];
     }
-    return array;
 }
 
-function flipTheCard() {
+function startRound() {
+    flipCards();
+    subscribeCardsOnClick();
+    startTimer();
+    setPairCount();
+}
+
+function flipCards() {
     const currentCards = <NodeListOf<HTMLImageElement>>(
         document.querySelectorAll(".image-card")
     );
     currentCards.forEach((element) => {
         element.src = `${imgPath}back.png`;
     });
-    subscribeCardsOnClick();
-    startTimer();
 }
 
 function subscribeCardsOnClick() {
