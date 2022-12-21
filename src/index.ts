@@ -22,6 +22,7 @@ window.application = {
     timer: undefined,
     difficulty: undefined,
     pairCount: undefined,
+    timeoutID: undefined,
 };
 
 window.application.renderScreen("difficulty");

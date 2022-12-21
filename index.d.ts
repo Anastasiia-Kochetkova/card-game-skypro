@@ -13,6 +13,7 @@ type App = {
     timer?: string;
     difficulty?: DifficultySetting;
     pairCount?: number;
+    timeoutID?: NodeJS.Timeout;
 };
 
 export type DifficultySetting = {

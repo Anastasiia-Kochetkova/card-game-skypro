@@ -5,11 +5,11 @@ export function createGameScreen() {
     const head = createHeadContainer();
     createTimer(head);
     createResetButton(head);
-
+    
     const cardsField = createCardsField();
     fillWithCards(cardsField);
-
-    setTimeout(startRound, 5000);
+    
+    window.application.timeoutID = setTimeout(startRound, 5000);
 }
 function createResetButton(container: HTMLElement): void {
     const resetButton = createElement(
@@ -22,6 +22,7 @@ function createResetButton(container: HTMLElement): void {
     resetButton.addEventListener("click", function () {
         window.application.pairCount = undefined;
         window.application.openCard = undefined;
+        clearTimeout(window.application.timeoutID);
         window.application.renderScreen("game");
     });
 }
